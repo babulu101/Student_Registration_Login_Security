@@ -1,19 +1,398 @@
-
-<html xmlns="https://www.thymeleaf.org">
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
-	<title>Registration Page</title>
-</head>	
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Registration - InsideBox</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            background-color: white;
+            border-radius: 15px;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+            width: 100%;
+            max-width: 450px;
+            overflow: hidden;
+        }
+        
+        .header {
+            background: linear-gradient(to right, #2575fc, #6a11cb);
+            padding: 30px 30px 40px;
+            text-align: center;
+            color: white;
+            position: relative;
+        }
+        
+        .header::after {
+            content: "";
+            position: absolute;
+            bottom: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 40px;
+            height: 40px;
+            background: white;
+            border-radius: 50%;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        .logo {
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .logo i {
+            font-size: 32px;
+            margin-right: 10px;
+            background: white;
+            color: #2575fc;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        .logo h1 {
+            font-size: 32px;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+        }
+        
+        .subtitle {
+            font-size: 18px;
+            margin-bottom: 5px;
+            font-weight: 500;
+        }
+        
+        .content {
+            padding: 40px 30px 30px;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+            position: relative;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-size: 14px;
+            color: #555;
+            font-weight: 600;
+        }
+        
+        .input-icon {
+            position: absolute;
+            left: 15px;
+            top: 40px;
+            color: #6a11cb;
+            font-size: 16px;
+        }
+        
+        .form-group input {
+            width: 100%;
+            padding: 14px 14px 14px 45px;
+            border: 2px solid #e1e5eb;
+            border-radius: 10px;
+            font-size: 16px;
+            transition: all 0.3s ease;
+        }
+        
+        .form-group input:focus {
+            outline: none;
+            border-color: #6a11cb;
+            box-shadow: 0 0 0 3px rgba(106, 17, 203, 0.2);
+        }
+        
+        .form-group input::placeholder {
+            color: #aaa;
+        }
+        
+        .signup-btn {
+            width: 100%;
+            padding: 14px;
+            background: linear-gradient(to right, #6a11cb, #2575fc);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 10px;
+            box-shadow: 0 5px 15px rgba(106, 17, 203, 0.4);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .signup-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(106, 17, 203, 0.6);
+        }
+        
+        .signup-btn:active {
+            transform: translateY(0);
+        }
+        
+        .signup-btn::after {
+            content: "→";
+            position: absolute;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            opacity: 0;
+            transition: all 0.3s ease;
+        }
+        
+        .signup-btn:hover::after {
+            opacity: 1;
+            right: 15px;
+        }
+        
+        .login-link {
+            margin-top: 25px;
+            font-size: 15px;
+            color: #555;
+            text-align: center;
+        }
+        
+        .login-link a {
+            color: #2575fc;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            display: inline-block;
+            margin-left: 5px;
+        }
+        
+        .login-link a:hover {
+            color: #6a11cb;
+            transform: translateX(5px);
+        }
+        
+        .divider {
+            display: flex;
+            align-items: center;
+            margin: 25px 0;
+        }
+        
+        .divider::before,
+        .divider::after {
+            content: "";
+            flex: 1;
+            height: 1px;
+            background: #e1e5eb;
+        }
+        
+        .divider span {
+            padding: 0 15px;
+            color: #777;
+            font-size: 14px;
+        }
+        
+        .message {
+            margin-top: 15px;
+            padding: 15px;
+            border-radius: 10px;
+            font-size: 15px;
+            text-align: center;
+        }
+        
+        .message-success {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+            animation: pulse 2s infinite;
+        }
+        
+        .message-error {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+            animation: shake 0.5s;
+        }
+        
+        .student-benefits {
+            background: #f8f9ff;
+            border-radius: 10px;
+            padding: 20px;
+            margin-top: 25px;
+            border-left: 4px solid #6a11cb;
+        }
+        
+        .student-benefits h3 {
+            color: #6a11cb;
+            margin-bottom: 12px;
+            font-size: 18px;
+        }
+        
+        .benefits-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        
+        .benefit {
+            background: white;
+            border-radius: 8px;
+            padding: 8px 12px;
+            font-size: 13px;
+            color: #555;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            display: flex;
+            align-items: center;
+        }
+        
+        .benefit i {
+            color: #2575fc;
+            margin-right: 5px;
+            font-size: 12px;
+        }
+        
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(25, 135, 84, 0.4); }
+            70% { box-shadow: 0 0 0 10px rgba(25, 135, 84, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(25, 135, 84, 0); }
+        }
+        
+        @keyframes shake {
+            0% { transform: translateX(0); }
+            20% { transform: translateX(-10px); }
+            40% { transform: translateX(10px); }
+            60% { transform: translateX(-10px); }
+            80% { transform: translateX(10px); }
+            100% { transform: translateX(0); }
+        }
+        
+        .footer {
+            text-align: center;
+            padding: 20px;
+            color: #777;
+            font-size: 13px;
+            border-top: 1px solid #eee;
+        }
+        
+        .footer a {
+            color: #6a11cb;
+            text-decoration: none;
+        }
+    </style>
+</head>
 <body>
-	<form th:action=@{/student/save} method="post">
-		<label>ID:</label>
-		<input type="number" name="id"><br>
-		<label>NAME:</label>
-		<input type="text" name="name"><br>
-		<label>PASSWORD:</label>
-		<input type="password" name="password"><br>
-		<input type="submit" value="Register">
-	</form>
-	<p th:if=${msg} th:text=${msg}></p>
+    <div class="container">
+        <div class="header">
+            <div class="logo">
+                <i class="fas fa-graduation-cap"></i>
+                <h1>InsideBox</h1>
+            </div>
+            <div class="subtitle">Student Registration Portal</div>
+        </div>
+        
+        <div class="content">
+            <form th:action="@{/student/save}" method="post">
+                <div class="form-group">
+                    <label for="id">Student ID</label>
+                    <i class="fas fa-id-card input-icon"></i>
+                    <input type="number" name="id" id="id" placeholder="Enter your student ID" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="name">Full Name</label>
+                    <i class="fas fa-user input-icon"></i>
+                    <input type="text" name="name" id="name" placeholder="Enter your full name" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <i class="fas fa-lock input-icon"></i>
+                    <input type="password" name="password" id="password" placeholder="Create a strong password" required>
+                </div>
+                
+                <button type="submit" class="signup-btn">
+                    <i class="fas fa-user-plus"></i> Register as Student
+                </button>
+            </form>
+            
+            <div class="divider">
+                <span>Already registered?</span>
+            </div>
+            
+            <div class="login-link">
+                <a th:href="@{/student/home}">
+                    <i class="fas fa-home"></i> Go to Student Home
+                </a>
+            </div>
+            
+            <p class="message" th:if="${msg}" th:classappend="${#strings.startsWith(msg, 'Success')} ? 'message-success' : 'message-error'" th:text="${msg}"></p>
+            
+            <div class="student-benefits">
+                <h3><i class="fas fa-star"></i> Student Benefits</h3>
+                <div class="benefits-list">
+                    <div class="benefit"><i class="fas fa-check"></i> Access to all courses</div>
+                    <div class="benefit"><i class="fas fa-check"></i> Academic resources</div>
+                    <div class="benefit"><i class="fas fa-check"></i> Student discounts</div>
+                    <div class="benefit"><i class="fas fa-check"></i> Library access</div>
+                    <div class="benefit"><i class="fas fa-check"></i> Career services</div>
+                    <div class="benefit"><i class="fas fa-check"></i> Technical support</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="footer">
+            <p>© 2023 InsideBox Student Portal. All rights reserved. <a href="#">Privacy Policy</a> | <a href="#">Terms of Service</a></p>
+        </div>
+    </div>
+
+    <script>
+        // Simple animations for form inputs
+        document.querySelectorAll('input').forEach(input => {
+            input.addEventListener('focus', function() {
+                this.parentNode.querySelector('.input-icon').style.color = '#6a11cb';
+                this.parentNode.querySelector('.input-icon').style.transform = 'scale(1.2)';
+            });
+            
+            input.addEventListener('blur', function() {
+                this.parentNode.querySelector('.input-icon').style.color = '#6a11cb';
+                this.parentNode.querySelector('.input-icon').style.transform = 'scale(1)';
+            });
+        });
+        
+        // Enhance password field
+        const passwordField = document.getElementById('password');
+        const passwordIcon = passwordField.previousElementSibling;
+        
+        passwordIcon.addEventListener('click', function() {
+            if(passwordField.type === 'password') {
+                passwordField.type = 'text';
+                passwordIcon.classList.remove('fa-lock');
+                passwordIcon.classList.add('fa-unlock');
+            } else {
+                passwordField.type = 'password';
+                passwordIcon.classList.remove('fa-unlock');
+                passwordIcon.classList.add('fa-lock');
+            }
+        });
+    </script>
 </body>
 </html>
-

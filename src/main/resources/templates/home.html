@@ -1,9 +1,465 @@
-<html>
-	
-
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pineview School</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        :root {
+            --primary: #1a5e63;
+            --secondary: #3498db;
+            --accent: #e74c3c;
+            --light: #f5f7fa;
+            --dark: #2c3e50;
+            --success: #27ae60;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Header Styles */
+        header {
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            color: white;
+            padding: 1rem 0;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo h1 {
+            font-size: 2.2rem;
+            font-weight: 700;
+            margin-left: 10px;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
+        }
+        
+        .logo-icon {
+            font-size: 2.5rem;
+            color: #f1c40f;
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+        
+        nav li {
+            margin-left: 1.5rem;
+        }
+        
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            padding: 8px 12px;
+            border-radius: 4px;
+        }
+        
+        nav a:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+        
+        /* Hero Section */
+        .hero {
+            background: url('https://images.unsplash.com/photo-1523050854058-8df90110c9f1?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1200&q=80') no-repeat center center/cover;
+            height: 400px;
+            display: flex;
+            align-items: center;
+            position: relative;
+            margin-bottom: 2rem;
+        }
+        
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+        }
+        
+        .hero-content {
+            position: relative;
+            color: white;
+            max-width: 800px;
+            padding: 2rem;
+            background: rgba(26, 94, 99, 0.85);
+            border-radius: 10px;
+            margin-left: 2rem;
+        }
+        
+        .hero h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .btn {
+            display: inline-block;
+            background: var(--accent);
+            color: white;
+            padding: 12px 25px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            font-size: 1.1rem;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+        
+        .btn:hover {
+            background: #c0392b;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+        }
+        
+        /* Main Content */
+        .content-section {
+            background: white;
+            border-radius: 10px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+        
+        .content-section h2 {
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 3px solid var(--secondary);
+            display: inline-block;
+        }
+        
+        .registration-day {
+            background: linear-gradient(to right, #e8f4f8, #ffffff);
+        }
+        
+        .registration-day h3 {
+            color: var(--accent);
+            margin: 1rem 0;
+            font-size: 1.5rem;
+        }
+        
+        .registration-day ul {
+            margin-left: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .registration-day li {
+            margin-bottom: 0.5rem;
+            font-size: 1.1rem;
+        }
+        
+        .student-scholars {
+            background: linear-gradient(to right, #ffffff, #f0f9ff);
+            text-align: center;
+        }
+        
+        .student-scholars .btn {
+            background: var(--success);
+            margin-top: 1rem;
+        }
+        
+        .student-scholars .btn:hover {
+            background: #219653;
+        }
+        
+        /* Resources Section */
+        .resources-section {
+            background: linear-gradient(to right, #f9f9f9, #ffffff);
+        }
+        
+        .resources-section h2 {
+            margin-bottom: 2rem;
+        }
+        
+        .resource-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+        }
+        
+        .resource-card {
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+            transition: transform 0.3s ease;
+        }
+        
+        .resource-card:hover {
+            transform: translateY(-10px);
+        }
+        
+        .card-header {
+            background: var(--primary);
+            color: white;
+            padding: 1rem;
+            text-align: center;
+            font-weight: 600;
+        }
+        
+        .card-content {
+            padding: 1.5rem;
+            text-align: center;
+            font-size: 1.1rem;
+        }
+        
+        /* Footer */
+        footer {
+            background: var(--dark);
+            color: white;
+            padding: 2rem 0;
+            margin-top: 2rem;
+        }
+        
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+        }
+        
+        .footer-section {
+            flex: 1;
+            min-width: 300px;
+            margin-bottom: 1.5rem;
+            padding: 0 1rem;
+        }
+        
+        .footer-section h3 {
+            margin-bottom: 1rem;
+            color: var(--secondary);
+            font-size: 1.3rem;
+        }
+        
+        .footer-section p {
+            margin-bottom: 0.5rem;
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 1.5rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            margin-top: 1rem;
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            nav ul {
+                margin-top: 1rem;
+                justify-content: center;
+            }
+            
+            nav li {
+                margin: 0 0.5rem;
+            }
+            
+            .hero-content {
+                margin: 1rem;
+                text-align: center;
+            }
+            
+            .hero h2 {
+                font-size: 2rem;
+            }
+            
+            .footer-content {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
 <body>
-	
-	
-	<h1>hii ok</h1>
+    <!-- Header Section -->
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <i class="fas fa-graduation-cap logo-icon"></i>
+                    <h1>Pineview School</h1>
+                </div>
+                <nav>
+                    <ul>
+                        <li><a href="#"><i class="fas fa-wifi"></i> Remote Settings</a></li>
+                        <li><a href="#"><i class="fas fa-flask"></i> Experimental & Programs</a></li>
+                        <li><a href="#"><i class="fas fa-users"></i> Club and Applications</a></li>
+                        <li><a href="#"><i class="fas fa-address-book"></i> Staff directory</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h2>Welcome to Pineview School</h2>
+            <p>Where excellence in education meets a nurturing community environment. Preparing students for a bright future through innovative learning experiences.</p>
+            <a href="#" class="btn">Enroll Today</a>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <div class="container">
+        <!-- Registration Day Section -->
+        <section class="content-section registration-day">
+            <h2>Lineary Site Registration Day</h2>
+            <h3>Up-skilled Lucy Rottles</h3>
+            <ul>
+                <li><strong>Safeguarding List</strong> - Comprehensive student protection protocols</li>
+                <li>Registration opens at 8:00 AM in the main auditorium</li>
+                <li>Bring all required documentation and completed forms</li>
+                <li>Orientation sessions for new students and parents</li>
+            </ul>
+            <a href="#" class="btn">View Registration Details</a>
+        </section>
+
+        <!-- Student Scholars Section -->
+        <section class="content-section student-scholars">
+            <h2>Pineview Student Scholars</h2>
+            <p>Celebrating academic excellence and outstanding achievements of our students</p>
+            <a href="#" class="btn">READ WORK →</a>
+        </section>
+
+        <!-- Additional Resources Section -->
+        <section class="content-section resources-section">
+            <h2>Additional Resources</h2>
+            <div class="resource-grid">
+                <div class="resource-card">
+                    <div class="card-header">Availability</div>
+                    <div class="card-content">
+                        <i class="fas fa-calendar-alt fa-3x" style="color: var(--primary); margin-bottom: 15px;"></i>
+                        <p>School Calendar, Event Schedules, and Facility Booking</p>
+                    </div>
+                </div>
+                
+                <div class="resource-card">
+                    <div class="card-header">Current Map</div>
+                    <div class="card-content">
+                        <i class="fas fa-map-marked-alt fa-3x" style="color: var(--accent); margin-bottom: 15px;"></i>
+                        <p>Campus Layout, Classroom Locations, and School Access Points</p>
+                    </div>
+                </div>
+                
+                <div class="resource-card">
+                    <div class="card-header">Club</div>
+                    <div class="card-content">
+                        <i class="fas fa-chess-knight fa-3x" style="color: var(--success); margin-bottom: 15px;"></i>
+                        <p>Student Organizations, Activities, and Club Registrations</p>
+                    </div>
+                </div>
+                
+                <div class="resource-card">
+                    <div class="card-header">My Name</div>
+                    <div class="card-content">
+                        <i class="fas fa-user-graduate fa-3x" style="color: var(--secondary); margin-bottom: 15px;"></i>
+                        <p>Student Profiles, Achievement Records, and Learning Portfolios</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Contact Us</h3>
+                    <p><i class="fas fa-map-marker-alt"></i>SANASIMA HIGH SCHOOL, ORA, SIALA 752030</p>
+                    <p><i class="fas fa-phone"></i> (+91) 6370230546</p>
+                    <p><i class="fas fa-envelope"></i> babulu.ku.tarai@gmail.com</p>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Quick Links</h3>
+                    <p><a href="#">Academic Calendar</a></p>
+                    <p><a href="#">Student Portal</a></p>
+                    <p><a href="#">Parent Resources</a></p>
+                    <p><a href="#">Cafeteria Menu</a></p>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>School Hours</h3>
+                    <p>Monday - Friday: 8:00 AM - 3:30 PM</p>
+                    <p>Office Hours: 7:30 AM - 4:30 PM</p>
+                    <p>Weekends: Closed</p>
+                </div>
+            </div>
+            
+            <div class="copyright">
+                <p>&copy; 2023 Pineview School. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Simple animation for buttons
+        document.querySelectorAll('.btn').forEach(button => {
+            button.addEventListener('mouseover', function() {
+                this.style.transform = 'translateY(-3px)';
+            });
+            
+            button.addEventListener('mouseout', function() {
+                this.style.transform = 'translateY(0)';
+            });
+        });
+        
+        // Resource card animation
+        document.querySelectorAll('.resource-card').forEach(card => {
+            card.addEventListener('mouseover', function() {
+                this.style.transform = 'translateY(-10px)';
+            });
+            
+            card.addEventListener('mouseout', function() {
+                this.style.transform = 'translateY(0)';
+            });
+        });
+    </script>
 </body>
 </html>
