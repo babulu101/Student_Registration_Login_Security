@@ -1,0 +1,19 @@
+
+<html xmlns="https://www.thymeleaf.org">
+<head>
+	<title>Registration Page</title>
+</head>	
+<body>
+	<form th:action=@{/student/save} method="post">
+		<label>ID:</label>
+		<input type="number" name="id"><br>
+		<label>NAME:</label>
+		<input type="text" name="name"><br>
+		<label>PASSWORD:</label>
+		<input type="password" name="password"><br>
+		<input type="submit" value="Register">
+	</form>
+	<p th:if=${msg} th:text=${msg}></p>
+</body>
+</html>
+
