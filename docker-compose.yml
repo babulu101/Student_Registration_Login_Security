@@ -13,7 +13,7 @@ services:
 
   app:
     image: student  # Replace with your image
-    container_name: springboot-app
+    container_name: springboot-student-app
     depends_on:
       - mysql
     ports:
